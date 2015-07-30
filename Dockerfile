@@ -13,7 +13,8 @@ COPY ./sshd_config /etc/ssh/sshd_config
 COPY ./keys/id_rsa.pub /root/.ssh/authorized_keys
 COPY ./keys/id_rsa.pub /home/dev/.ssh/authorized_keys
 
-RUN mkdir -p /var/run/sshd && apt-get update && apt-get install -y openssh-server 
+RUN mkdir -p /var/run/sshd && apt-get update && apt-get install -y openssh-server  && ssh-keygen -A
+RUN usermod -a -G sudo dev
 
 EXPOSE 22
 

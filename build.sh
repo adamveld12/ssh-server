@@ -11,7 +11,7 @@ else
 
   rm -rf ./keys
   mkdir ./keys
-  ssh-keygen -b 4096 -N "$sshpass" -f "./keys/id_rsa" -C "Root Ssh Access Key"  &> /dev/null
+  ssh-keygen -t rsa -b 4096 -N "$sshpass" -f "./keys/id_rsa" -C "Root SSH Access Key"  &> /dev/null
 fi
 
 docker build -t adamveld12/ssh-server .
