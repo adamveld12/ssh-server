@@ -1,5 +1,7 @@
-./keys/id_rsa
-./build.sh
+keys/id_rsa
+build.sh
+connect.sh
+README.md
 
 .git
 .gitignore
