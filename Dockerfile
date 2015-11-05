@@ -1,22 +1,12 @@
-FROM adamveld12/base
+FROM alpine:3.2
 
-MAINTAINER Adam Veldhousen <adam@veldhousen.ninja>
+MAINTAINER Adam Veldhousen <adam@veldhousen.ninja> @adamveld12
 
-USER root
+RUN apk update && apk add openssh && rm -rf /var/cache/apk/* && rc-update add sshd &&  /usr/bin/ssh-keygen -A
 
-RUN locale-gen en_US.UTF-8 
-ENV LANG en_US.UTF-8 
-ENV LANGUAGE en_US:en 
-ENV LC_ALL en_US.UTF-8 
-
+COPY ./keys/id_rsa.pub /root/.ssh/authorized_keys 
 COPY ./sshd_config /etc/ssh/sshd_config
-COPY ./keys/id_rsa.pub     /root/.ssh/authorized_keys
-COPY ./keys/id_rsa.pub /home/dev/.ssh/authorized_keys
-
-RUN mkdir -p /var/run/sshd && apt-get update && apt-get install -y openssh-server
-RUN usermod -aG sudo dev && usermod -aG sshlogin dev && chmod 700 /home/dev/.ssh && chown -R dev /home/dev/
+COPY ./motd /etc/motd
 
 EXPOSE 22
-
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
-

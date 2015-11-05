@@ -74,7 +74,7 @@ TCPKeepAlive yes
 
 #MaxStartups 10:30:60
 Banner /etc/issue.net
-AllowUsers root dev
+AllowUsers root
 
 ClientAliveInterval 300
 IgnoreRhosts yes

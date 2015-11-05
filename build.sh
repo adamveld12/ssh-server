@@ -2,24 +2,25 @@
 IFS='\n\t'
 set -euo pipefail
 
-if [[ -f "./keys/id_rsa" && -f "./keys/id_rsa.pub" ]]; then
-  echo "Using existing keypair at ./keys"
+if [[ -f "./keys/id_rsa"  && -f "./keys/id_rsa.pub" ]]; then
+  echo "Using existing keypair..."
 else
-  echo -n "Your new SSH key's password (blank for none) [ENTER]: "
-  read -es sshpass
-  echo
-
+  echo -n "Your ssh password (leave blank for no password) [ENTER]:"
+  read -e sshpass
+  echo -e "Generating key pair for SSH in ./keys..."
   rm -rf ./keys
-  mkdir ./keys
-  ssh-keygen -t rsa -b 4096 -N "$sshpass" -f "./keys/id_rsa" -C "Root SSH Access Key"  &> /dev/null
+  mkdir -p ./keys
+  ssh-keygen -b 4096 -N "${sshpass}" -f ./keys/id_rsa -C "SSH Server Root"
 fi
 
-docker build -t adamveld12/ssh-server .
+docker build -t ssh-server .
 
-if [[ -f $(which boot2docker) ]]; then
-  IP=$(boot2docker ip)
+if [[ -f $(which docker-machine) ]]; then
+  IP=$(docker-machine ip default)
 else
-  IP="127.0.0.1"
+  IP=127.0.0.1
 fi
 
-echo "ssh root@${IP} -i ./keys/id_rsa -p 2222"
+echo "adamveld12/ssh-server completed."
+echo "to ssh into your new server run:"
+echo "ssh root@${IP} -i ./keys/id_rsa"
