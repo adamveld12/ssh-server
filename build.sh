@@ -23,4 +23,5 @@ fi
 
 echo "adamveld12/ssh-server completed."
 echo "to ssh into your new server run:"
-echo "ssh root@${IP} -i ./keys/id_rsa"
+echo "docker run -d -p 2222:22 ssh-server"
+echo "ssh root@${IP} -p 2222 -i ./keys/id_rsa"
