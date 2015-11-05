@@ -1,6 +1,8 @@
 # SSH Server
 
-This is an ssh server that is hosted inside of a docker container based on Alpine Linux. I've taken measures to harden this ssh server by following some tips from [here](http://www.cyberciti.biz/tips/linux-unix-bsd-openssh-server-best-practices.html).
+This is an ssh server that is hosted inside of a docker container based on Alpine Linux. 
+
+I'm slowly hardening this ssh server by following some tips from [here](http://www.cyberciti.biz/tips/linux-unix-bsd-openssh-server-best-practices.html).
 
 The image on docker hub under `adamveld12/ssh-server` uses the [Vagrant insecure keypair](https://github.com/mitchellh/vagrant/tree/master/keys). Maybe this would be useful to you  if you want to use an image for a local dev environment or some for testing.
 
